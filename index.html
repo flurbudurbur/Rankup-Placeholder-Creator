@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rankup Placeholder Creator</title>
     <link rel="stylesheet" href="./css/style.css">
-    <!-- <link rel="stylesheet" href="./css/dev/output.css"> uncomment if you want to edit this! -->
-    <script src="./js/main.js"></script>
+    <!-- uncomment if you want to edit this! -->
+    <!-- <link rel="stylesheet" href="./css/dev/output.css"> -->
+    <script src="./js/main.js" defer></script>
   </head>
   <body class="font-mono">
-    <h1 class="text-4xl font-bold px-10 py-6 text-center bg-gray-300">
-      Rankup Placeholder Creator
-    </h1>
+    <nav class="relative">
+      <h1 class="text-4xl font-bold px-10 py-6 text-center bg-gray-300">
+        Rankup Placeholder Creator
+      </h1>
+      <div class="absolute top-4 right-4 inline-flex flex-row"><a target="_blank" href="https://github.com/flurbudurbur/Rankup-Placeholder-Creator">Check it out on GitHub!</a></div>
+    </nav>
     <div class="flex p-6 gap-4 bg-gray-200">
       <div class="p-4 grid grid-cols-1 gap-2 w-2/5">
         <h2 class="text-3xl text-center font-bold">Variables</h2>
@@ -31,8 +35,8 @@
         </div>
         <div
           id="subRequirementDiv"
-          style="display: grid"
           class="grid grid-cols-2 border-black border-b-2"
+          style="display: none;"
         >
           <label for="subRequirementInput">Sub-requirement</label>
           <input
@@ -92,6 +96,6 @@
           />
         </div>
       </div>
-    </div>
+    </div>  
   </body>
 </html>

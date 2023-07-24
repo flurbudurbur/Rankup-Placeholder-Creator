@@ -1,101 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rankup Placeholder Creator</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <!-- uncomment if you want to edit this! -->
-    <!-- <link rel="stylesheet" href="./css/dev/output.css"> -->
-    <script src="./js/main.js" defer></script>
-  </head>
-  <body class="font-mono">
-    <nav class="relative">
-      <h1 class="text-4xl font-bold px-10 py-6 text-center bg-gray-300">
-        Rankup Placeholder Creator
-      </h1>
-      <div class="absolute top-4 right-4 inline-flex flex-row"><a target="_blank" href="https://github.com/flurbudurbur/Rankup-Placeholder-Creator">Check it out on GitHub!</a></div>
-    </nav>
-    <div class="flex p-6 gap-4 bg-gray-200">
-      <div class="p-4 grid grid-cols-1 gap-2 w-2/5">
-        <h2 class="text-3xl text-center font-bold">Variables</h2>
-        <div class="grid grid-cols-2 border-black border-b-2">
-          <label class="" for="requirement">Requirement</label>
-          <select name="requirement" id="requirementSelector">
-            <option selected value="money" data-subReq="false">
-              <code>money</code>
-            </option>
-            <option value="xp-level" data-subReq="false">
-              <code>xp-level</code>
-            </option>
-            <option value="mob-kills" data-subReq="true">
-              <code>mob-kills</code>
-            </option>
-          </select>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rankup Placeholder Creator</title>
+        <!-- <link rel="stylesheet" href="./css/style.css"> -->
+        <!-- uncomment if you want to edit this! -->
+        <link rel="stylesheet" href="./css/dev/output.css" />
+        <script type="module" src="./js/main.js" defer></script>
+        <link
+            rel="shortcut icon"
+            href="./img/favicon.png"
+            type="image/x-icon"
+        />
+        <!-- <script src="./js/mob_enum.js" defer></script> -->
+    </head>
+    <body class="font-mono">
+        <nav class="relative">
+            <h1 class="text-4xl font-bold px-10 py-6 text-center bg-gray-300">
+                Rankup Placeholder Creator
+            </h1>
+            <div class="absolute top-4 right-4 inline-flex flex-row">
+                <a
+                    target="_blank"
+                    href="https://github.com/flurbudurbur/Rankup-Placeholder-Creator"
+                    >Check it out on GitHub!</a
+                >
+            </div>
+        </nav>
+        <div class="flex p-6 gap-4 bg-gray-200">
+            <div class="p-4 grid grid-cols-1 gap-2 w-2/5">
+                <h2 class="text-3xl text-center font-bold">Variables</h2>
+                <div class="grid grid-cols-2 border-black border-b-2">
+                    <label class="" for="requirement">Requirement</label>
+                    <select name="requirement" id="requirementSelector">
+                        <option selected value="money" data-hasSubReq="false">
+                            money
+                        </option>
+                        <option value="moneyh" data-hasSubReq="false">
+                            moneyh
+                        </option>
+                        <option value="xp-level" data-hasSubReq="false">
+                            xp-level
+                        </option>
+                        <option value="xp-levelh" data-hasSubReq="false">
+                            xp-levelh
+                        </option>
+                        <option value="playtime-minutes" data-hasSubReq="false">
+                            playtime-minutes
+                        </option>
+                        <option value="group" data-hasSubReq="false">
+                            group
+                        </option>
+                        <option value="permission" data-hasSubReq="false">
+                            permission
+                        </option>
+                        <option value="world" data-hasSubReq="false">
+                            world
+                        </option>
+                        <option value="player-kills" data-hasSubReq="false">
+                            player-kills
+                        </option>
+                        <option value="total-mob-kills" data-hasSubReq="false">
+                            total-mob-kills
+                        </option>
+                        <option
+                            value="mob-kills"
+                            data-hasSubReq="true"
+                            data-subReq="mob-kills"
+                            data-selector="true"
+                        >
+                            mob-kills
+                        </option>
+                        <option
+                            value="item"
+                            data-hasSubReq="true"
+                            data-subReq="item"
+                            data-selector="true"
+                        >
+                            item
+                        </option>
+                        <option
+                            value="itemh"
+                            data-hasSubReq="true"
+                            data-subReq="item"
+                            data-selector="true"
+                        >
+                            itemh
+                        </option>
+                        <option
+                            value="use-item"
+                            data-hasSubReq="true"
+                            data-subReq="item"
+                            data-selector="true"
+                        >
+                            use-item
+                        </option>
+                        <option
+                            value="craft-item"
+                            data-hasSubReq="true"
+                            data-subReq="recipe"
+                            data-selector="true"
+                        >
+                            craft-item
+                        </option>
+                        <option
+                            value="block-break"
+                            data-hasSubReq="true"
+                            data-subReq="item"
+                            data-selector="true"
+                        >
+                            block-break
+                        </option>
+                        <option
+                            value="placeholder"
+                            data-hasSubReq="true"
+                            data-subReq="placeholder"
+                            data-selector="false"
+                        >
+                            placeholder
+                        </option>
+                    </select>
+                </div>
+                <div
+                    id="subRequirementDiv"
+                    class="grid grid-cols-2 border-black border-b-2"
+                    style="display: none"
+                >
+                    <label for="subRequirementInput">Sub-requirement</label>
+                    <input
+                        type="text"
+                        name="subRequirementInput"
+                        id="subRequirementInput"
+                        placeholder="sub requirement"
+                    />
+                    <select
+                        data-option="selector"
+                        name="subRequirementSelectMobKills"
+                        id="subRequirementSelect__mob-kills"
+                    >
+                        <option value="" selected hidden disabled>
+                            Choose
+                        </option>
+                        <!-- gets added during site load -->
+                    </select>
+                    <select
+                        data-option="selector"
+                        name="subRequirementSelectItem"
+                        id="subRequirementSelect__item"
+                    >
+                        <option value="" selected hidden disabled>
+                            Choose
+                        </option>
+                        <!-- gets added during site load -->
+                    </select>
+                    <select
+                        data-option="selector"
+                        name="subRequirementSelectRecipe"
+                        id="subRequirementSelect__recipe"
+                    >
+                        <option value="" selected hidden disabled>
+                            Choose
+                        </option>
+                        <!-- gets added during site load -->
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 border-black border-b-2">
+                    <label for="requirementValue">formatter</label>
+                    <select name="formatter" id="formatterSelector">
+                        <option value="done">done</option>
+                        <option selected value="total">total</option>
+                        <option value="progress">progress</option>
+                        <option value="remaining">remaining</option>
+                        <option value="quotient">quotient</option>
+                        <option value="percent">percent</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 border-black border-b-2">
+                    <label for="filter">Filter</label>
+                    <select name="filter" id="filterSelector">
+                        <option selected value="simple">
+                            simple (recommended)
+                        </option>
+                        <option value="money">money</option>
+                        <option value="percent">percent</option>
+                        <option value="shortmoney">shortmoney</option>
+                        <option value="none">none</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex flex-col w-full">
+                <div class="flex gap-4">
+                    <div class="flex flex-col w-full relative">
+                        <h3 class="text-2xl font-bold">Placeholder</h3>
+                        <code
+                            class="bg-gray-600 text-white rounded-md p-3 select-all"
+                            id="output"
+                            >{{ rank.req('money').total | simple }}</code
+                        >
+                        <button
+                            class="absolute right-3 text-white top-10"
+                            id="copyButton"
+                            onclick="copyToClipboard()"
+                            type="button"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                            >
+                                <path
+                                    d="M20.9983 10C20.9862 7.82497 20.8897 6.64706 20.1213 5.87868C19.2426 5 17.8284 5 15 5H12C9.17157 5 7.75736 5 6.87868 5.87868C6 6.75736 6 8.17157 6 11V16C6 18.8284 6 20.2426 6.87868 21.1213C7.75736 22 9.17157 22 12 22H15C17.8284 22 19.2426 22 20.1213 21.1213C21 20.2426 21 18.8284 21 16V15"
+                                    stroke="#ffffff"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                />
+                                <path
+                                    d="M3 10V16C3 17.6569 4.34315 19 6 19M18 5C18 3.34315 16.6569 2 15 2H11C7.22876 2 5.34315 2 4.17157 3.17157C3.51839 3.82475 3.22937 4.69989 3.10149 6"
+                                    stroke="#ffffff"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex flex-col w-1/3">
+                        <h3 class="text-2xl font-bold">Ingame output</h3>
+                        <code
+                            class="bg-gray-600 text-white rounded-md p-3"
+                            id="ingameOutput"
+                            >10000</code
+                        >
+                    </div>
+                </div>
+                <div class="flex flex-col my-6">
+                    <label for="completion"
+                        >Simulate Requirement Completion</label
+                    >
+                    <input
+                        type="range"
+                        name="completion"
+                        id="completion"
+                        min="0"
+                        step="0.5"
+                        max="10000"
+                        value="5000"
+                    />
+                </div>
+            </div>
         </div>
-        <div
-          id="subRequirementDiv"
-          class="grid grid-cols-2 border-black border-b-2"
-          style="display: none;"
-        >
-          <label for="subRequirementInput">Sub-requirement</label>
-          <input
-            type="text"
-            name="subRequirementInput"
-            id="subRequirementInput"
-            placeholder="sub requirement"
-          />
-        </div>
-        <div class="grid grid-cols-2 border-black border-b-2">
-          <label for="requirementValue">formatter</label>
-          <select name="formatter" id="formatterSelector">
-            <option value="done"><code>done</code></option>
-            <option selected value="total"><code>total</code></option>
-            <option value="progress"><code>progress</code></option>
-            <option value="remaining"><code>remaining</code></option>
-            <option value="quotient"><code>quotient</code></option>
-            <option value="percent"><code>percent</code></option>
-          </select>
-        </div>
-        <div class="grid grid-cols-2 border-black border-b-2">
-          <label for="filter">Filter</label>
-          <select name="filter" id="filterSelector">
-            <option selected value="simple">simple (recommended)</option>
-            <option value="money">money</option>
-            <option value="percent">percent</option>
-            <option value="shortmoney">shortmoney</option>
-            <option value="none">none</option>
-          </select>
-        </div>
-      </div>
-      <div class="flex flex-col w-full">
-        <div class="flex gap-4">
-          <div class="flex flex-col w-full relative">
-            <h3 class="text-2xl font-bold">Placeholder</h3>
-            <code class="bg-gray-600 text-white rounded-md p-3 select-all" id="output">{{ rank.req('money').total | simple }}</code>
-            <button class="absolute right-3 text-white top-10" id="copyButton" onclick="copyToClipboard()" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
-              <path d="M20.9983 10C20.9862 7.82497 20.8897 6.64706 20.1213 5.87868C19.2426 5 17.8284 5 15 5H12C9.17157 5 7.75736 5 6.87868 5.87868C6 6.75736 6 8.17157 6 11V16C6 18.8284 6 20.2426 6.87868 21.1213C7.75736 22 9.17157 22 12 22H15C17.8284 22 19.2426 22 20.1213 21.1213C21 20.2426 21 18.8284 21 16V15" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M3 10V16C3 17.6569 4.34315 19 6 19M18 5C18 3.34315 16.6569 2 15 2H11C7.22876 2 5.34315 2 4.17157 3.17157C3.51839 3.82475 3.22937 4.69989 3.10149 6" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
-              </svg><button>
-          </div>
-          <div class="flex flex-col w-1/3">
-            <h3 class="text-2xl font-bold">Ingame output</h3>
-            <code class="bg-gray-600 text-white rounded-md p-3" id="ingameOutput">10000</code>
-          </div>
-        </div>
-        <div class="flex flex-col my-6">
-          <label for="completion">Simulate Requirement Completion</label>
-          <input
-            type="range"
-            name="completion"
-            id="completion"
-            min="0"
-            step="0.5"
-            max="10000"
-            value="5000"
-          />
-        </div>
-      </div>
-    </div>  
-  </body>
+    </body>
 </html>

@@ -83,10 +83,10 @@ window.addEventListener("load", () => {
 
         if (dataHasSubReq == "true") {
             subRequirementDiv.style.display = "grid";
+            var selectors = document.querySelectorAll("[data-option]");
             if (dataSelector == "true") {
                 subRequirementInput.style.display = "none";
                 // loop through all select with data attribute data-option
-                var selectors = document.querySelectorAll("[data-option]");
                 selectors.forEach((element) => {
                   var elementID = element.id.replace("subRequirementSelect__", "");
                   if (elementID == dataSubReq) {
@@ -99,8 +99,10 @@ window.addEventListener("load", () => {
 
                 var subRequirement = ", '" + selected + "'";
             } else {
+                selectors.forEach((element) => {
+                    element.style.display = "none";
+                });
                 subRequirementInput.style.display = "block";
-                subRequirementSelect.style.display = "none";
                 var subRequirement = ", '" + subRequirementInput.value + "'";
                 var subRequirement = subRequirement.replace(/%/g, "");
             }

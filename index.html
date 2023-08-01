@@ -4,9 +4,9 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Rankup Placeholder Creator</title>
-        <!-- <link rel="stylesheet" href="./css/style.css"> -->
+        <link rel="stylesheet" href="./css/style.css">
         <!-- uncomment if you want to edit this! -->
-        <link rel="stylesheet" href="./css/dev/output.css" />
+        <!-- <link rel="stylesheet" href="./css/dev/output.css" /> -->
         <script type="module" src="./js/main.js" defer></script>
         <link
             rel="shortcut icon"
@@ -173,19 +173,26 @@
                         <option value="progress">progress</option>
                         <option value="remaining">remaining</option>
                         <option value="quotient">quotient</option>
-                        <option value="percent">percent</option>
+                        <option
+                            value="percent"
+                            data-recommendedFormat="percent"
+                        >
+                            percent
+                        </option>
                     </select>
                 </div>
                 <div class="grid grid-cols-2 border-black border-b-2">
                     <label for="filter">Filter</label>
                     <select name="filter" id="filterSelector">
-                        <option selected value="simple">
+                        <option selected value="simple" id="simple">
                             simple (recommended)
                         </option>
-                        <option value="money">money</option>
-                        <option value="percent">percent</option>
-                        <option value="shortmoney">shortmoney</option>
-                        <option value="none">none</option>
+                        <option value="money" id="money">money</option>
+                        <option value="percent" id="percent">percent</option>
+                        <option value="shortmoney" id="shortmoney">
+                            shortmoney
+                        </option>
+                        <option value="none" id="none">none</option>
                     </select>
                 </div>
             </div>

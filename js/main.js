@@ -15,6 +15,7 @@ window.addEventListener("load", () => {
     const ingameOutput = document.getElementById("ingameOutput");
     const subRequirementDiv = document.getElementById("subRequirementDiv");
     const subRequirementInput = document.getElementById("subRequirementInput");
+    const copyButton = document.getElementById("copyButton");
     const subRequirementSelectItem = document.getElementById(
         "subRequirementSelect__item"
     );
@@ -24,6 +25,7 @@ window.addEventListener("load", () => {
     const subRequirementSelectRecipe = document.getElementById(
         "subRequirementSelect__recipe"
     );
+    const selectors = document.querySelectorAll("[data-option]");
 
     // add event listeners
     requirementSelector.addEventListener("change", () => {
@@ -50,6 +52,9 @@ window.addEventListener("load", () => {
     subRequirementSelectRecipe.addEventListener("change", () => {
         updateOutput();
     });
+    copyButton.addEventListener("click", () => {
+        copyToClipboard();
+    });
 
     var ingameTotal = 0;
     var ingameFilter = "";
@@ -59,7 +64,7 @@ window.addEventListener("load", () => {
         // get the values
         const requirement = requirementSelector.value || "money";
         const formatter = formatterSelector.value || "total";
-        const filter = filterSelector.value || "simple";
+        var filter = filterSelector.value || "simple";
 
         // get the data-hasSubReq attribute value
         const dataHasSubReq =
@@ -78,23 +83,27 @@ window.addEventListener("load", () => {
             requirementSelector.options[
                 requirementSelector.selectedIndex
             ].getAttribute("data-selector");
-        
+
         var selected = [];
 
         if (dataHasSubReq == "true") {
             subRequirementDiv.style.display = "grid";
-            var selectors = document.querySelectorAll("[data-option]");
             if (dataSelector == "true") {
                 subRequirementInput.style.display = "none";
                 // loop through all select with data attribute data-option
                 selectors.forEach((element) => {
-                  var elementID = element.id.replace("subRequirementSelect__", "");
-                  if (elementID == dataSubReq) {
-                    element.style.display = "block";
-                    selected.push(element.options[element.selectedIndex].value);
-                  } else {
-                    element.style.display = "none";
-                  }
+                    var elementID = element.id.replace(
+                        "subRequirementSelect__",
+                        ""
+                    );
+                    if (elementID == dataSubReq) {
+                        element.style.display = "block";
+                        selected.push(
+                            element.options[element.selectedIndex].value
+                        );
+                    } else {
+                        element.style.display = "none";
+                    }
                 });
 
                 var subRequirement = ", '" + selected + "'";
@@ -139,6 +148,7 @@ window.addEventListener("load", () => {
                 var ingameTotal = completionSlider.value;
                 break;
         }
+        getRecommendedFilter();
 
         switch (filter) {
             case "none":
@@ -184,8 +194,15 @@ window.addEventListener("load", () => {
                 break;
         }
 
+        // check if filter is none
+        if (filter == "none") {
+            filter = "";
+        } else {
+            filter = "| " + filter;
+        }
+
         // update the output
-        output.innerHTML = `{{ rank.req('${requirement}'${subRequirement}).${formatter} | ${filter} }}`;
+        output.innerHTML = `{{ rank.req('${requirement}'${subRequirement}).${formatter} ${filter} }}`;
         ingameOutput.innerHTML = ingameTotal;
     }
 
@@ -193,6 +210,7 @@ window.addEventListener("load", () => {
     importEnum(mobs, "mob-kills");
     importEnum(recipes, "recipe");
 });
+
 function copyToClipboard() {
     var copyText = document.getElementById("output");
     var button = document.getElementById("copyButton");
@@ -222,4 +240,22 @@ function importEnum(array, selectorID) {
         selector.add(option);
     });
     console.log(selectorID + " loaded");
+}
+
+function getRecommendedFilter() {
+    // get the data-recommendedFormat attribute value
+    const dataRecommendedFormat =
+        formatterSelector.options[formatterSelector.selectedIndex].getAttribute(
+            "data-recommendedFormat"
+        ) || "simple";
+
+    // update text of filterSelector
+    Object.keys(filterSelector.options).forEach((element) => {
+        var option = filterSelector.options[element];
+        if (option.value == dataRecommendedFormat) {
+            option.text = option.value + " (recommended)";
+        } else {
+            option.text = option.value;
+        }
+    });
 }
